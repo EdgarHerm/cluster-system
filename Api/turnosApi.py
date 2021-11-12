@@ -1,63 +1,30 @@
 import json 
 from flask import Blueprint, jsonify, request
-from ..Controller.vehiculosController import *
+from ..Controller.turnosController import *
 
-vehiculoApi = Blueprint('vehiculoApi', __name__, url_prefix='/vehiculos')
+turnoApi = Blueprint('turnoApi', __name__, url_prefix='/turno')
 
 
-@vehiculoApi.route("/mostrar", methods=['POST'])
-def buscarVehiculos():
-    estado = "OK"
-    mensaje = "Información consultada correctamente"
-    
+@turnoApi.route("/mostrar", methods=['GET'])
+def consultarTurnos():
+    turnos = consultarTurno()
+    turnos_json = []
+    for turno in turnos:
+        turnos_dictionary = turno.__dict__
+        del turnos_dictionary['_sa_instance_state']
+        turnos_json.append(turnos_dictionary)
+    return jsonify(turnos_json)
+
+        
+@turnoApi.route('/agregar', methods=['POST'])
+def agregarTurnos():
     try:
-        print(request.json)
-        print("idColono" not in request.json)
-        
-        if "idColono" not in request.json or request.json["idColono"] == 0:
-            print("test")
-            vehiculos = consultarVehiculo(0)
-            if len(vehiculos)>0:
-                Vehiculos_json = []
-                for vehiculo in vehiculos:
-                    vehiculo_dictionary = vehiculo.__dict__
-                    del vehiculo_dictionary['_sa_instance_state']
-                    Vehiculos_json.append(vehiculo_dictionary)
-                return jsonify(Vehiculos_json)
-        else:
-            vehiculo = consultarVehiculo(request.json["idColono"])
-            if vehiculo is None:
-                    return jsonify({
-                        "estado" : "ADVERTENCIA",
-                        "mensaje": "No se encontro un vehiculo con el id especificado"
-                    })
-            vehiculo_dictionary = vehiculo.__dict__
-            del vehiculo_dictionary['_sa_instance_state']
-            return jsonify(vehiculo_dictionary)
-        
-    except Exception as e:
-        estado = "ERROR"
-        mensaje = "Ha ocurrido un error! Por favor verificalo con un administrador"
-        return jsonify({
-            "estado"  : estado,
-            "mensaje" : mensaje,
-            "excepcion": str(e)
-        })
-        
-@vehiculoApi.route('/agregar', methods=['POST'])
-def agregarVehiculos():
-    try:
-        if agregarVehiculo(
-            request.json["marca"],
-            request.json["modelo"],
-            request.json["color"],
-            request.json["matricula"],  
-            request.json["fotografia"],
-            request.json["estatus"],
-            request.json["idColono"]):
+        if agregarTurno(
+            request.json["horaInicio"],
+            request.json["horaFin"]):
             return jsonify({
                 "estado" : "OK",
-                "mensaje": "Vehiculo registrado correctamente"
+                "mensaje": "Turno registrado correctamente"
             })
         else:
             estado = "ERROR"
@@ -75,26 +42,21 @@ def agregarVehiculos():
             "excepcion":str(e)
         })
 
-@vehiculoApi.route('/modificar', methods=['POST'])
-def modificarVehiculos():
+@turnoApi.route('/modificar', methods=['POST'])
+def modificarTurnos():
     try: 
-        if "idVehiculo" not in request.json:
+        if "idTurno" not in request.json:
             return jsonify({
                 "estado" : "ADVERTENCIA",
-                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id de vehiculo para modificar"
+                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id de Turno para modificar"
             })
-        if modificarVehiculo(
-            request.json["idVehiculo"],
-            request.json["marca"],
-            request.json["modelo"],
-            request.json["color"],
-            request.json["matricula"],  
-            request.json["fotografia"],
-            request.json["estatus"],
-            request.json["idColono"]):
+        if modificarTurno(
+            request.json["idTurno"],
+            request.json["horaInicio"],
+            request.json["horaFin"]):
             return jsonify({
                 "estado" : "OK",
-                "mensaje": "Vehiculo modificado correctamente"
+                "mensaje": "Turno modificado correctamente"
             })
         else:
             estado = "ERROR"
@@ -113,19 +75,48 @@ def modificarVehiculos():
             "excepcion":str(e)
         })
         
-        #cambia del estatus de activo a incativo del Ingrediente
-@vehiculoApi.route('/eliminar', methods=['POST'])
-def eliminarVehiculos():  
+@turnoApi.route('/desactivar', methods=['POST'])
+def desactivarTurnos():  
     try: 
-        if "idVehiculo" not in request.json:
+        if "idTurno" not in request.json:
             return jsonify({
                 "estado" : "ADVERTENCIA",
-                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id de usuario para eliminar"
+                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id de turno para eliminar"
             }) 
-        if eliminarVehiculos(request.json["idVehiculo"]):
+        if desactivarTurno(request.json["idTurno"]):
             return jsonify({
                 "estado" : "OK",
-                "mensaje": "Vehiculo eliminado correctamente"
+                "mensaje": "Turno eliminado correctamente"
+            }) 
+        else:
+            estado = "ERROR"
+            mensaje = "Ha ocurrido un error al eliminar el registro! Por favor verificalo con un administrador o revisa tu solicitud"
+            return jsonify({
+                "estado"  : estado,
+                "mensaje" : mensaje
+            })
+    except Exception as e:
+        estado = "ERROR"
+        mensaje = "Ha ocurrido un error al modificar el registro! Por favor verificalo con un administrador o revisa tu solicitud"
+        
+        return jsonify({
+            "estado"  : estado,
+            "mensaje" : mensaje,
+            "excepcion":str(e)
+        })
+        
+@turnoApi.route('/activar', methods=['POST'])
+def sactivarTurnos():  
+    try: 
+        if "idTurno" not in request.json:
+            return jsonify({
+                "estado" : "ADVERTENCIA",
+                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id de turno para eliminar"
+            }) 
+        if activarTurno(request.json["idTurno"]):
+            return jsonify({
+                "estado" : "OK",
+                "mensaje": "Turno eliminado correctamente"
             }) 
         else:
             estado = "ERROR"

@@ -35,6 +35,9 @@ def create_app():
 
     from .Api.colonoApi import colonoApi as colonoApi 
     app.register_blueprint(colonoApi)
+
+    from .Api.turnosApi import turnoApi as turnosApi  
+    app.register_blueprint(turnosApi)
     
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

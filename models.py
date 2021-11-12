@@ -32,6 +32,7 @@ class Usuario(dbSQL.Model):
     correo = dbSQL.Column(dbSQL.String(64) , nullable=False)
     estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
     contraseña = dbSQL.Column(dbSQL.String(64) , nullable=False)
+    token = dbSQL.Column(dbSQL.Text() , nullable=False)
     idRol= dbSQL.Column('idRol', dbSQL.Integer,dbSQL.ForeignKey('Rol.idRol'))
     rol = dbSQL.relationship('Rol', backref=dbSQL.backref('roles', lazy='dynamic'))
     
