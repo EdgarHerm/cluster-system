@@ -51,8 +51,6 @@
 #     from .Api.loginApi import sesionApi as sesionApi  
 #     app.register_blueprint(sesionApi)
     
-#     from .main import main as main_blueprint
-#     app.register_blueprint(main_blueprint)
     
     
 
