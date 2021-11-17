@@ -1,7 +1,7 @@
 from ..models import Usuario
 from ..__init__ import dbSQL
 import hashlib
-from datetime import datetime
+import random
 
 
 def consultarUsuario(idUsuario):
@@ -15,7 +15,8 @@ def insertarUsuario(correo, contraseña, idRol, estatus):
     agregarUsuario = Usuario(
         correo=correo,
         estatus=estatus,
-        contraseña=contraseña,  
+        contraseña=contraseña, 
+        token="", 
         idRol=idRol
     )
 
@@ -29,6 +30,7 @@ def modificarUsuario(idUsuario, correo, contraseña, idRol , estatus):
     modificarUsuario = dbSQL.session.query(Usuario).filter(Usuario.idUsuario == idUsuario).first()
     modificarUsuario.correo = correo
     modificarUsuario.contraseña = contraseña
+    modificarUsuario.token = ""
     modificarUsuario.idRol = idRol
     modificarUsuario.estatus = estatus
 
@@ -50,17 +52,16 @@ def validarToken(token):
         return False
     
 def login(usuario,contrasenia):
-    fecha = datetime.today()
     result = dbSQL.session.query(Usuario).filter(Usuario.correo == usuario and Usuario.contraseña == contrasenia).first()
     
     if result is not None:
-        h = hashlib.new("hash", usuario+"-"+contrasenia+"-"+fecha)
+        h = hashlib.sha256(str(usuario+""+contrasenia).encode('utf-8')).hexdigest()
         
-        result.token = h.hexdigest()
+        result.token = h
         dbSQL.session.add(result)
         dbSQL.session.commit()
         
-        return h.hexdigest()
+        return h
 
 def logout(token):
     result = dbSQL.session.query(Usuario).filter(Usuario.token == token).first()

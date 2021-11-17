@@ -6,7 +6,7 @@ sesionApi = Blueprint('sesionApi', __name__, url_prefix='/sesion')
 
 
 @sesionApi.route('/login', methods=['POST'])
-def login():
+def iniciarSesion():
     try:
 
         if "usuario" not in request.json and "contrasenia" not in request.json:
@@ -39,7 +39,7 @@ def login():
 
 
 @sesionApi.route('/logout', methods=['POST'])
-def logout():
+def salirSesion():
     try:
 
         if "token" not in request.json :

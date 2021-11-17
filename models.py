@@ -118,6 +118,8 @@ class Visita(dbSQL.Model):
     modelo = dbSQL.Column(dbSQL.String(30), nullable=False)
     color= dbSQL.Column(dbSQL.String(20), nullable=False)
     estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
+    fechaEntrada= dbSQL.Column(dbSQL.DateTime,default = hoy)
+    fechaSalida= dbSQL.Column(dbSQL.DateTime,nullable=False)
     idColono= dbSQL.Column('idColono', dbSQL.Integer,dbSQL.ForeignKey('Colono.idColono'))
     colono = dbSQL.relationship('Colono', backref=dbSQL.backref('colonosVisita', lazy='dynamic'))
     

@@ -1,41 +1,36 @@
 import json
 from json import JSONEncoder
 from flask import Blueprint, jsonify, request
-from ..Controller.colonoController import *
+from ..Controller.empleadoController import *
 
-colonoApi = Blueprint('colonoApi', __name__, url_prefix='/colono')
-
-
-def toJSON(self):
-    return json.dumps(self, default=lambda o: o.__dict__,
-                      sort_keys=True, indent=4)
+empleadoApi = Blueprint('empleadoApi', __name__, url_prefix="/empleado")
 
 
-@colonoApi.route("/mostrar", methods=['POST'])
-def buscarColonos():
-
+@empleadoApi.route('/mostrar', methods=['POST'])
+def mostrarEmpleado():
     estado = "OK"
     mensaje = "Información consultada correctamente"
 
     try:
         print(request.json)
-        print("idColono" not in request.json)
+        print("idEmpleado" not in request.json)
 
-        if "idColono" not in request.json or request.json["idColono"] == 0:
+        if "idEmpleado" not in request.json or request.json["idEmpleado"] == 0:
             print("test")
-            colonos = consultarColono(0)
-            if (colonos):
+            empleados = consultarEmpleado(0)
+            if (empleados):
 
-                colonos_json = []
-                for x in colonos:
-                    colonos_json.append({
-                        "Colono": {
-                            "idColono": x.Colono.idColono,
-                            "idPersona": x.Colono.idPersona,
-                            "idUsuario": x.Colono.idUsuario,
-                            "idDomicilio": x.Colono.idDomicilio,
-                            "foto": x.Colono.fotografia,
-                            "estatus": x.Colono.estatus,
+                empleados_json = []
+                for x in empleados:
+                    empleados_json.append({
+                        "Empleado": {
+                            "idEmpleado": x.Empleado.idEmpleado,
+                            "idPersona": x.Empleado.idPersona,
+                            "idUsuario": x.Empleado.idUsuario,
+                            "idTurno": x.Empleado.idTurno,
+                            "empresa": x.Empleado.empresador,
+                            "zona": x.Empleado.zona,
+                            "estatus": x.Empleado.estatus,
                         }, "Persona": {
                             "nombre": x.Persona.nombre,
                             "apellidos": x.Persona.apellidos,
@@ -43,30 +38,30 @@ def buscarColonos():
                         }, "Usuario": {
                             "correo": x.Usuario.correo,
                             "constraseña": x.Usuario.contraseña,
-                        }, "Domicilio": {
-                            "calle": x.Domicilio.calle,
-                            "numero": x.Domicilio.numero,
-                            "descripcion": x.Domicilio.descripcion
+                        }, "Turno": {
+                            "horaInicio": x.Turno.horaInicio,
+                            "horaFin": x.Turno.horaFin,
                         }
                     })
-                return jsonify(colonos_json)
+                return jsonify(empleados_json)
         else:
-            colono = consultarColono(request.json["idColono"])
-            if colono is None:
+            empleado = consultarEmpleado(request.json["idEmpleado"])
+            if empleado is None:
                 return jsonify({
                     "estado": "ADVERTENCIA",
-                    "mensaje": "No se encontro un colono con el id especificado"
+                    "mensaje": "No se encontro un Empleado con el id especificado"
                 })
-            colonos_json = []
-            for x in colono:
-                colonos_json.append({
-                    "Colono": {
-                        "idColono": x.Colono.idColono,
-                        "idPersona": x.Colono.idPersona,
-                        "idUsuario": x.Colono.idUsuario,
-                        "idDomicilio": x.Colono.idDomicilio,
-                        "foto": x.Colono.fotografia,
-                        "estatus": x.Colono.estatus,
+            empleados_json = []
+            for x in empleado:
+                empleados_json.append({
+                    "Empleado": {
+                        "idEmpleado": x.Empleado.idEmpleado,
+                        "idPersona": x.Empleado.idPersona,
+                        "idUsuario": x.Empleado.idUsuario,
+                        "idTurno": x.Empleado.idTurno,
+                        "empresa": x.Empleado.empresador,
+                        "zona": x.Empleado.zona,
+                        "estatus": x.Empleado.estatus,
                     }, "Persona": {
                         "nombre": x.Persona.nombre,
                         "apellidos": x.Persona.apellidos,
@@ -74,13 +69,12 @@ def buscarColonos():
                     }, "Usuario": {
                         "correo": x.Usuario.correo,
                         "constraseña": x.Usuario.contraseña,
-                    }, "Domicilio": {
-                        "calle": x.Domicilio.calle,
-                        "numero": x.Domicilio.numero,
-                        "descripcion": x.Domicilio.descripcion
+                    }, "Turno": {
+                        "horaInicio": x.Turno.horaInicio,
+                        "horaFin": x.Turno.horaFin,
                     }
                 })
-            return jsonify(colonos_json)
+            return jsonify(empleados_json)
 
     except Exception as e:
         estado = "ERROR"
@@ -92,22 +86,25 @@ def buscarColonos():
         })
 
 
-@colonoApi.route('/agregar', methods=['POST'])
-def agregarcolonos():
+@empleadoApi.route('/agregar', methods=['POST'])
+def agregarEmpleados():
     try:
-        if agregarColono(
-            request.json["fotografia"],
+        if agregarEmpleado(
+
             request.json["correo"],
             request.json["contraseña"],
             request.json["idRol"],
             request.json["nombre"],
             request.json["apellidos"],
             request.json["telefono"],
-            request.json["idDomicilio"]
+            request.json["estatus"],
+            request.json["empresa"],
+            request.json["zona"],
+            request.json["turno"]
         ):
             return jsonify({
                 "estado": "OK",
-                "mensaje": "Colono registrado correctamente"
+                "mensaje": "Empleado registrado correctamente"
             })
         else:
             estado = "ERROR"
@@ -125,30 +122,33 @@ def agregarcolonos():
             "excepcion": str(e)
         })
 
-@colonoApi.route('/modificar', methods=['POST'])
-def modificarColonos():
+
+@empleadoApi.route('/modificar', methods=['POST'])
+def modificarEmpleados():
     try:
-        if "idColono" not in request.json and "idUsuario" not in request.json and "idPersona" not in request.json: 
+        if "idEmpleado" not in request.json and "idUsuario" not in request.json and "idPersona" not in request.json:
             return jsonify({
-                "estado" : "ADVERTENCIA",
-                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id de vehiculo para modificar"
+                "estado": "ADVERTENCIA",
+                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id para modificar"
             })
-        if modificarColono(
-            request.json["idColono"],
+        if modificarEmpleado(
+            request.json["idEmpleado"],
             request.json["idUsuario"],
             request.json["idPersona"],
-            request.json["idDomicilio"],
-            request.json["fotografia"],
             request.json["correo"],
             request.json["contraseña"],
             request.json["idRol"],
             request.json["nombre"],
             request.json["apellidos"],
-            request.json["telefono"]
+            request.json["telefono"],
+            request.json["estatus"],
+            request.json["empresa"],
+            request.json["zona"],
+            request.json["turno"]
         ):
             return jsonify({
                 "estado": "OK",
-                "mensaje": "Colono registrado correctamente"
+                "mensaje": "Empleado modificado correctamente"
             })
         else:
             estado = "ERROR"
@@ -165,62 +165,65 @@ def modificarColonos():
             "mensaje": mensaje,
             "excepcion": str(e)
         })
-@colonoApi.route('/desactivar', methods=['POST'])
-def desactivarColonos():  
-    try: 
-        if "idColono" not in request.json:
+
+
+@empleadoApi.route('/desactivar', methods=['POST'])
+def desactivarEmpleados():
+    try:
+        if "idEmpleado" not in request.json:
             return jsonify({
-                "estado" : "ADVERTENCIA",
-                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id de colono para desactivar"
-            }) 
-        if desactivarColono(request.json["idColono"]):
+                "estado": "ADVERTENCIA",
+                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id de Empleado para desactivar"
+            })
+        if desactivarEmpleado(request.json["idEmpleado"]):
             return jsonify({
-                "estado" : "OK",
-                "mensaje": "Colono desactivado correctamente"
-            }) 
+                "estado": "OK",
+                "mensaje": "Empleado desactivado correctamente"
+            })
         else:
             estado = "ERROR"
             mensaje = "Ha ocurrido un error al desactivar el registro! Por favor verificalo con un administrador o revisa tu solicitud"
             return jsonify({
-                "estado"  : estado,
-                "mensaje" : mensaje
+                "estado": estado,
+                "mensaje": mensaje
             })
     except Exception as e:
         estado = "ERROR"
         mensaje = "Ha ocurrido un error al modificar el registro! Por favor verificalo con un administrador o revisa tu solicitud"
-        
+
         return jsonify({
-            "estado"  : estado,
-            "mensaje" : mensaje,
-            "excepcion":str(e)
+            "estado": estado,
+            "mensaje": mensaje,
+            "excepcion": str(e)
         })
-        
-@colonoApi.route('/activar', methods=['POST'])
-def activarColonos():  
-    try: 
-        if "idColono" not in request.json:
+
+
+@empleadoApi.route('/activar', methods=['POST'])
+def activarEmpleados():
+    try:
+        if "idEmpleado" not in request.json:
             return jsonify({
-                "estado" : "ADVERTENCIA",
-                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id de colono para activar"
-            }) 
-        if activarColono(request.json["idColono"]):
+                "estado": "ADVERTENCIA",
+                "mensaje": "Ha ocurrido un error, es necesario proporcionar un id de Empleado para activar"
+            })
+        if activarEmpleado(request.json["idEmpleado"]):
             return jsonify({
-                "estado" : "OK",
-                "mensaje": "Colono activado correctamente"
-            }) 
+                "estado": "OK",
+                "mensaje": "Empleado activado correctamente"
+            })
         else:
             estado = "ERROR"
             mensaje = "Ha ocurrido un error al activar el registro! Por favor verificalo con un administrador o revisa tu solicitud"
             return jsonify({
-                "estado"  : estado,
-                "mensaje" : mensaje
+                "estado": estado,
+                "mensaje": mensaje
             })
     except Exception as e:
         estado = "ERROR"
         mensaje = "Ha ocurrido un error al modificar el registro! Por favor verificalo con un administrador o revisa tu solicitud"
-        
+
         return jsonify({
-            "estado"  : estado,
-            "mensaje" : mensaje,
-            "excepcion":str(e)
+            "estado": estado,
+            "mensaje": mensaje,
+            "excepcion": str(e)
         })

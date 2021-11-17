@@ -17,7 +17,7 @@ def create_app():
     # Generar la clave de sessión para crear una cookie con la inf. de la sessión
     app.config['SECRET_KEY'] = os.urandom(24)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://taurus:T4urus2021!@209.209.40.81:14818/cluster'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://taurus:T4urus2021_!@172.107.32.118:19966/cluster'
 
     app.config['SECURITY_PASSWORD_SALT'] = 'thissecretsalt'
     
@@ -33,11 +33,23 @@ def create_app():
     from .Api.vehiculoApi import vehiculoApi as vehiculoApi
     app.register_blueprint(vehiculoApi)
 
+    from .Api.listaPagoApi import listaPagoApi as listaPagoApi
+    app.register_blueprint(listaPagoApi)
+
+    from .Api.empleadoApi import empleadoApi as empleadoApi
+    app.register_blueprint(empleadoApi)
+
     from .Api.colonoApi import colonoApi as colonoApi 
     app.register_blueprint(colonoApi)
 
     from .Api.turnosApi import turnoApi as turnosApi  
     app.register_blueprint(turnosApi)
+    
+    from .Api.domicilioApi import domicilioApi as domicilioApi  
+    app.register_blueprint(domicilioApi)
+    
+    from .Api.loginApi import sesionApi as sesionApi  
+    app.register_blueprint(sesionApi)
     
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

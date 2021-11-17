@@ -13,18 +13,19 @@ def consultarColono(idColono):
         return dbSQL.session.query(Colono, Persona, Usuario, Domicilio).join(Persona, Persona.idPersona == Colono.idPersona).join(Usuario, Usuario.idUsuario == Colono.idUsuario).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).filter(Colono.idColono == idColono).filter(Colono.estatus==1)
 
 
-def agregarColono(foto, calle, numero, descripcion, correo, contraseña, idRol, nombre, apellidos, telefono, estatus):
+def agregarColono(foto,correo, contraseña, idRol, nombre, apellidos, telefono, idDomicilio) :
+    estatus =1
 
     persona = insertarPersona(nombre, apellidos, telefono)
 
     usuario = insertarUsuario(correo, contraseña, idRol, estatus)
 
-    domicilio = agregarDomicilio(calle, numero, descripcion, estatus)
+    
 
     colono = Colono(
         fotografia=foto,
         estatus=estatus,
-        idDomicilio=domicilio,
+        idDomicilio=idDomicilio,
         idPersona=persona,
         idUsuario=usuario,
 
@@ -34,20 +35,19 @@ def agregarColono(foto, calle, numero, descripcion, correo, contraseña, idRol, 
     return True
 
 
-def modificarColono(idColono, idUsuario, idPersona, idDomicilio, foto, calle, numero, descripcion, correo, contraseña, idRol, nombre, apellidos, telefono):
+def modificarColono(idColono, idUsuario, idPersona, idDomicilio, foto, correo, contraseña, idRol, nombre, apellidos, telefono):
     estatus=1
 
     persona = modificarPersona(idPersona, nombre, apellidos, telefono,estatus)
 
     usuario = modificarUsuario(idUsuario, correo, contraseña, idRol,estatus)
 
-    domicilio = modificarDomicilio(idDomicilio, calle, numero, descripcion,estatus)
 
     colono = dbSQL.session.query(Colono).filter(
         Colono.idColono == idColono).first()
     colono.fotografia = foto
     colono.estatus=estatus
-    colono.idDomicilio=domicilio
+    colono.idDomicilio=idDomicilio
     colono.idPersona=persona
     colono.idUsuario=usuario
     dbSQL.session.add(colono)
