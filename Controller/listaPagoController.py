@@ -1,11 +1,11 @@
 from ..models import ListaPago
-from ..__init__ import dbSQL
+from ..__init__ import db
 
 def consultarListaPago(idListaPago):
     if idListaPago == 0:
         return ListaPago.query.all()
     else:
-        return dbSQL.session.query(ListaPago).filter(ListaPago.idListaPago == idListaPago).filter(ListaPago.estatus==1)
+        return db.session.query(ListaPago).filter(ListaPago.idListaPago == idListaPago).filter(ListaPago.estatus==1)
     
 def agregarListaPago(motivoPago,monto,descripcion,fechaFin):
 
@@ -16,33 +16,33 @@ def agregarListaPago(motivoPago,monto,descripcion,fechaFin):
         fechaFin=fechaFin,
         estatus= 1
     )
-    dbSQL.session.add(agregarListaPago)
-    dbSQL.session.commit()
+    db.session.add(agregarListaPago)
+    db.session.commit()
     return True
 
 def modificarListaPago(idListaPago,motivoPago,monto,descripcion,fechaFin):
-    modificarListaPago = dbSQL.session.query(ListaPago).filter(ListaPago.idListaPago == idListaPago).first()
+    modificarListaPago = db.session.query(ListaPago).filter(ListaPago.idListaPago == idListaPago).first()
     modificarListaPago.motivoPago= motivoPago
     modificarListaPago.monto=monto
     modificarListaPago.descripcion=descripcion
     modificarListaPago.fechaFin=fechaFin
     modificarListaPago.estatus=1
-    dbSQL.session.add(modificarListaPago)
-    dbSQL.session.commit()    
+    db.session.add(modificarListaPago)
+    db.session.commit()    
     return True
 
 def desactivarListaPago(idListaPago):
-    listaPago = dbSQL.session.query(ListaPago).filter(ListaPago.idListaPago == idListaPago).first()
+    listaPago = db.session.query(ListaPago).filter(ListaPago.idListaPago == idListaPago).first()
     listaPago.estatus = 0
-    dbSQL.session.add(listaPago)
-    dbSQL.session.commit()
+    db.session.add(listaPago)
+    db.session.commit()
     
     return True
 
 def activarListaPago(idListaPago):
-    listaPago = dbSQL.session.query(ListaPago).filter(ListaPago.idListaPago == idListaPago).first()
+    listaPago = db.session.query(ListaPago).filter(ListaPago.idListaPago == idListaPago).first()
     listaPago.estatus = 1
-    dbSQL.session.add(listaPago)
-    dbSQL.session.commit()
+    db.session.add(listaPago)
+    db.session.commit()
     
     return True

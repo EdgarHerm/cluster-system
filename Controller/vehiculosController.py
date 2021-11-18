@@ -1,12 +1,12 @@
 from ..models import Vehiculo
-from ..__init__ import dbSQL
+from ..__init__ import db
 
 
 def consultarVehiculo(idColono):
     if idColono == 0:
-        return dbSQL.session.query(Vehiculo).all()
+        return db.session.query(Vehiculo).all()
     else:
-        return dbSQL.session.query(Vehiculo).filter(Vehiculo.idColono == idColono).first()
+        return db.session.query(Vehiculo).filter(Vehiculo.idColono == idColono).first()
 
 def agregarVehiculo(marca, modelo, color, matricula, fotografia,estatus, idColono):
     agregarVehiculos = Vehiculo(
@@ -19,12 +19,12 @@ def agregarVehiculo(marca, modelo, color, matricula, fotografia,estatus, idColon
         idColono=idColono
     )
 
-    dbSQL.session.add(agregarVehiculos)
-    dbSQL.session.commit()
+    db.session.add(agregarVehiculos)
+    db.session.commit()
     return True
 
 def modificarVehiculo(idVehiculo,marca,modelo,color,matricula,fotografia, estatus,idColono):
-    modificarVehiculos = dbSQL.session.query(Vehiculo).filter(Vehiculo.idVehiculo == idVehiculo).first()
+    modificarVehiculos = db.session.query(Vehiculo).filter(Vehiculo.idVehiculo == idVehiculo).first()
     modificarVehiculos.marcador=marca
     modificarVehiculos.modelo=modelo
     modificarVehiculos.color=color
@@ -33,13 +33,13 @@ def modificarVehiculo(idVehiculo,marca,modelo,color,matricula,fotografia, estatu
     modificarVehiculos.estatus=estatus
     modificarVehiculos.idColono=idColono
     
-    dbSQL.session.add(modificarVehiculos)
-    dbSQL.session.commit()
+    db.session.add(modificarVehiculos)
+    db.session.commit()
     
     return True
 
 def eliminarVehiculos(idVehiculo):
-    eliminarVehiculos = dbSQL.session.query(Vehiculo).filter(Vehiculo.idVehiculo == idVehiculo).first()
-    dbSQL.session.delete(eliminarVehiculos)
-    dbSQL.session.commit()
+    eliminarVehiculos = db.session.query(Vehiculo).filter(Vehiculo.idVehiculo == idVehiculo).first()
+    db.session.delete(eliminarVehiculos)
+    db.session.commit()
     return True

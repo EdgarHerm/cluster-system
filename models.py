@@ -1,142 +1,142 @@
-from . import dbSQL
+from . import db
 from datetime import datetime
 
 hoy = datetime.now()
 # Definiendo la tabla relacional
 
-class ListaPago(dbSQL.Model):
+class ListaPago(db.Model):
     """ListaPago Model"""
 
     __tablename__ = 'ListaPago'
-    idListaPago = dbSQL.Column(dbSQL.Integer, primary_key=True)
-    motivoPago = dbSQL.Column(dbSQL.String(80),nullable=False)
-    monto = dbSQL.Column(dbSQL.Float,nullable=False)
-    descripcion = dbSQL.Column(dbSQL.String(80),nullable=False)
-    fechaInicio = dbSQL.Column(dbSQL.DateTime, default = hoy)
-    fechaFin = dbSQL.Column(dbSQL.DateTime,default = False)
-    estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
+    idListaPago = db.Column(db.Integer, primary_key=True)
+    motivoPago = db.Column(db.String(80),nullable=False)
+    monto = db.Column(db.Float,nullable=False)
+    descripcion = db.Column(db.String(80),nullable=False)
+    fechaInicio = db.Column(db.DateTime, default = hoy)
+    fechaFin = db.Column(db.DateTime,default = False)
+    estatus = db.Column(db.Integer, nullable=False)
 
-class Rol(dbSQL.Model):
+class Rol(db.Model):
     """Rol Model"""
     
     __tablename__ = 'Rol'
-    idRol = dbSQL.Column(dbSQL.Integer, primary_key=True)
-    nombre = dbSQL.Column(dbSQL.String(50), nullable=False)
-    descripcion = dbSQL.Column(dbSQL.String(255))
+    idRol = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(50), nullable=False)
+    descripcion = db.Column(db.String(255))
     
-class Usuario(dbSQL.Model):
+class Usuario(db.Model):
     """Usuario Model"""
     
     __tablename__ = 'Usuario'
-    idUsuario = dbSQL.Column(dbSQL.Integer, primary_key=True)
-    correo = dbSQL.Column(dbSQL.String(64) , nullable=False)
-    estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
-    contraseña = dbSQL.Column(dbSQL.String(64) , nullable=False)
-    token = dbSQL.Column(dbSQL.Text() , nullable=False)
-    idRol= dbSQL.Column('idRol', dbSQL.Integer,dbSQL.ForeignKey('Rol.idRol'))
-    rol = dbSQL.relationship('Rol', backref=dbSQL.backref('roles', lazy='dynamic'))
+    idUsuario = db.Column(db.Integer, primary_key=True)
+    correo = db.Column(db.String(64) , nullable=False)
+    estatus = db.Column(db.Integer, nullable=False)
+    contraseña = db.Column(db.String(64) , nullable=False)
+    token = db.Column(db.Text() , nullable=False)
+    idRol= db.Column('idRol', db.Integer,db.ForeignKey('Rol.idRol'))
+    rol = db.relationship('Rol', backref=db.backref('roles', lazy='dynamic'))
     
-class Turno(dbSQL.Model):
+class Turno(db.Model):
     """Turno Model"""
     
     __tablename__ = 'Turno'
-    idTurno = dbSQL.Column(dbSQL.Integer, primary_key=True)
-    horaInicio = dbSQL.Column(dbSQL.String(20) , nullable=False)
-    horaFin = dbSQL.Column(dbSQL.String(20) , nullable=False)
-    estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
+    idTurno = db.Column(db.Integer, primary_key=True)
+    horaInicio = db.Column(db.String(20) , nullable=False)
+    horaFin = db.Column(db.String(20) , nullable=False)
+    estatus = db.Column(db.Integer, nullable=False)
     
-class Persona(dbSQL.Model):
+class Persona(db.Model):
     """ Persona model"""
 
     __tablename__="Persona"
-    idPersona = dbSQL.Column(dbSQL.Integer, primary_key=True)
-    nombre= dbSQL.Column(dbSQL.String(50), nullable=False)
-    apellidos= dbSQL.Column(dbSQL.String(50), nullable=False)
-    telefono= dbSQL.Column(dbSQL.String(12), nullable=False)
+    idPersona = db.Column(db.Integer, primary_key=True)
+    nombre= db.Column(db.String(50), nullable=False)
+    apellidos= db.Column(db.String(50), nullable=False)
+    telefono= db.Column(db.String(12), nullable=False)
     
-class Empleado(dbSQL.Model):
+class Empleado(db.Model):
     """Empleado Model"""
     
     __tablename__ = 'Empleado'
-    idEmpleado = dbSQL.Column(dbSQL.Integer, primary_key=True)
-    empresador = dbSQL.Column(dbSQL.String(30), nullable=False)
-    zona = dbSQL.Column(dbSQL.String(20), nullable=False)
-    estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
-    idTurno= dbSQL.Column('idTurno', dbSQL.Integer,dbSQL.ForeignKey('Turno.idTurno'))
-    rol = dbSQL.relationship('Turno', backref=dbSQL.backref('turnos', lazy='dynamic'))
-    idPersona= dbSQL.Column('idPersona', dbSQL.Integer,dbSQL.ForeignKey('Persona.idPersona'))
-    persona = dbSQL.relationship('Persona', backref=dbSQL.backref('personasEmpleado', lazy='dynamic'))
-    idUsuario= dbSQL.Column('idUsuario', dbSQL.Integer,dbSQL.ForeignKey('Usuario.idUsuario'))
-    usuario = dbSQL.relationship('Usuario', backref=dbSQL.backref('usuariosEmpleado', lazy='dynamic'))
+    idEmpleado = db.Column(db.Integer, primary_key=True)
+    empresador = db.Column(db.String(30), nullable=False)
+    zona = db.Column(db.String(20), nullable=False)
+    estatus = db.Column(db.Integer, nullable=False)
+    idTurno= db.Column('idTurno', db.Integer,db.ForeignKey('Turno.idTurno'))
+    rol = db.relationship('Turno', backref=db.backref('turnos', lazy='dynamic'))
+    idPersona= db.Column('idPersona', db.Integer,db.ForeignKey('Persona.idPersona'))
+    persona = db.relationship('Persona', backref=db.backref('personasEmpleado', lazy='dynamic'))
+    idUsuario= db.Column('idUsuario', db.Integer,db.ForeignKey('Usuario.idUsuario'))
+    usuario = db.relationship('Usuario', backref=db.backref('usuariosEmpleado', lazy='dynamic'))
     
-class Domicilio(dbSQL.Model):
+class Domicilio(db.Model):
     """Domicilio Model"""
     
     __tablename__ = 'Domicilio'
-    idDomicilio = dbSQL.Column(dbSQL.Integer,primary_key=True)
-    calle = dbSQL.Column(dbSQL.String(45), nullable=False)
-    numero = dbSQL.Column(dbSQL.String(10), nullable=False)
-    descripcion = dbSQL.Column(dbSQL.String(50), nullable=False)
-    estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
+    idDomicilio = db.Column(db.Integer,primary_key=True)
+    calle = db.Column(db.String(45), nullable=False)
+    numero = db.Column(db.String(10), nullable=False)
+    descripcion = db.Column(db.String(50), nullable=False)
+    estatus = db.Column(db.Integer, nullable=False)
     
 
-class Colono(dbSQL.Model):
+class Colono(db.Model):
     """Colono Model"""
     
     __tablename__ = 'Colono'
-    idColono= dbSQL.Column(dbSQL.Integer, primary_key=True)
-    fotografia = dbSQL.Column(dbSQL.Text(), nullable=False)
-    estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
-    idDomicilio= dbSQL.Column('idDomicilio', dbSQL.Integer,dbSQL.ForeignKey('Domicilio.idDomicilio'))
-    domicilio = dbSQL.relationship('Domicilio', backref=dbSQL.backref('domicilio', lazy='dynamic'))
-    idPersona= dbSQL.Column('idPersona', dbSQL.Integer,dbSQL.ForeignKey('Persona.idPersona'))
-    persona = dbSQL.relationship('Persona', backref=dbSQL.backref('personasColono', lazy='dynamic'))
-    idUsuario= dbSQL.Column('idUsuario', dbSQL.Integer,dbSQL.ForeignKey('Usuario.idUsuario'))
-    usuario = dbSQL.relationship('Usuario', backref=dbSQL.backref('usuariosColono', lazy='dynamic'))
+    idColono= db.Column(db.Integer, primary_key=True)
+    fotografia = db.Column(db.Text(), nullable=False)
+    estatus = db.Column(db.Integer, nullable=False)
+    idDomicilio= db.Column('idDomicilio', db.Integer,db.ForeignKey('Domicilio.idDomicilio'))
+    domicilio = db.relationship('Domicilio', backref=db.backref('domicilio', lazy='dynamic'))
+    idPersona= db.Column('idPersona', db.Integer,db.ForeignKey('Persona.idPersona'))
+    persona = db.relationship('Persona', backref=db.backref('personasColono', lazy='dynamic'))
+    idUsuario= db.Column('idUsuario', db.Integer,db.ForeignKey('Usuario.idUsuario'))
+    usuario = db.relationship('Usuario', backref=db.backref('usuariosColono', lazy='dynamic'))
     
-class Vehiculo(dbSQL.Model):
+class Vehiculo(db.Model):
     """Vehiculo Model"""
     
     __tablename__ = 'Vehiculo'
-    idVehiculo = dbSQL.Column(dbSQL.Integer,primary_key=True)
-    marcador = dbSQL.Column(dbSQL.String(30), nullable=False)
-    modelo = dbSQL.Column(dbSQL.String(30), nullable=False)
-    color = dbSQL.Column(dbSQL.String(20), nullable=False)
-    matricula = dbSQL.Column(dbSQL.String(20), nullable=False)
-    fotografia = dbSQL.Column(dbSQL.Text(), nullable=False)
-    estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
-    idColono= dbSQL.Column('idColono', dbSQL.Integer,dbSQL.ForeignKey('Colono.idColono'))
-    colono = dbSQL.relationship('Colono', backref=dbSQL.backref('colonosVehiculo', lazy='dynamic'))
+    idVehiculo = db.Column(db.Integer,primary_key=True)
+    marcador = db.Column(db.String(30), nullable=False)
+    modelo = db.Column(db.String(30), nullable=False)
+    color = db.Column(db.String(20), nullable=False)
+    matricula = db.Column(db.String(20), nullable=False)
+    fotografia = db.Column(db.Text(), nullable=False)
+    estatus = db.Column(db.Integer, nullable=False)
+    idColono= db.Column('idColono', db.Integer,db.ForeignKey('Colono.idColono'))
+    colono = db.relationship('Colono', backref=db.backref('colonosVehiculo', lazy='dynamic'))
     
-class Visita(dbSQL.Model):
+class Visita(db.Model):
     """Visita Model"""
     
     __tablename__ = 'Visita'
-    idVisita= dbSQL.Column(dbSQL.Integer, primary_key=True)
-    nombre = dbSQL.Column(dbSQL.String(50), nullable=False)
-    matriculaVehiculo = dbSQL.Column(dbSQL.String(20), nullable=False)
-    modelo = dbSQL.Column(dbSQL.String(30), nullable=False)
-    color= dbSQL.Column(dbSQL.String(20), nullable=False)
-    estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
-    fechaEntrada= dbSQL.Column(dbSQL.DateTime,default = hoy)
-    fechaSalida= dbSQL.Column(dbSQL.DateTime,nullable=False)
-    idColono= dbSQL.Column('idColono', dbSQL.Integer,dbSQL.ForeignKey('Colono.idColono'))
-    colono = dbSQL.relationship('Colono', backref=dbSQL.backref('colonosVisita', lazy='dynamic'))
+    idVisita= db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(50), nullable=False)
+    matriculaVehiculo = db.Column(db.String(20), nullable=False)
+    modelo = db.Column(db.String(30), nullable=False)
+    color= db.Column(db.String(20), nullable=False)
+    estatus = db.Column(db.Integer, nullable=False)
+    fechaEntrada= db.Column(db.DateTime,default = hoy)
+    fechaSalida= db.Column(db.DateTime,nullable=False)
+    idColono= db.Column('idColono', db.Integer,db.ForeignKey('Colono.idColono'))
+    colono = db.relationship('Colono', backref=db.backref('colonosVisita', lazy='dynamic'))
     
-class RecepcionPago(dbSQL.Model):
+class RecepcionPago(db.Model):
     """RecepcionPago Model"""
     
     __tablename__ = 'RecepcionPago'
-    idRecepcionPago= dbSQL.Column(dbSQL.Integer, primary_key=True)
-    fechaPago = dbSQL.Column(dbSQL.DateTime,nullable=False)
-    fotEvidencia = dbSQL.Column(dbSQL.Text(), nullable=False)
-    fechaRecepcion= dbSQL.Column(dbSQL.DateTime,nullable=False)
-    descripcion = dbSQL.Column(dbSQL.String(50), nullable=False)
-    estatus = dbSQL.Column(dbSQL.Integer, nullable=False)
-    idColono= dbSQL.Column('idColono', dbSQL.Integer,dbSQL.ForeignKey('Colono.idColono'))
-    colono = dbSQL.relationship('Colono', backref=dbSQL.backref('colonosPagos', lazy='dynamic'))
-    idListaPago= dbSQL.Column('idListaPago', dbSQL.Integer,dbSQL.ForeignKey('ListaPago.idListaPago'))
-    listapago = dbSQL.relationship('ListaPago', backref=dbSQL.backref('listapagos', lazy='dynamic'))
+    idRecepcionPago= db.Column(db.Integer, primary_key=True)
+    fechaPago = db.Column(db.DateTime,nullable=False)
+    fotEvidencia = db.Column(db.Text(), nullable=False)
+    fechaRecepcion= db.Column(db.DateTime,nullable=False)
+    descripcion = db.Column(db.String(50), nullable=False)
+    estatus = db.Column(db.Integer, nullable=False)
+    idColono= db.Column('idColono', db.Integer,db.ForeignKey('Colono.idColono'))
+    colono = db.relationship('Colono', backref=db.backref('colonosPagos', lazy='dynamic'))
+    idListaPago= db.Column('idListaPago', db.Integer,db.ForeignKey('ListaPago.idListaPago'))
+    listapago = db.relationship('ListaPago', backref=db.backref('listapagos', lazy='dynamic'))
 
 
 

@@ -2,10 +2,14 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore
 import os
+
+from .models import Usuario, Rol
+
 # Creamos una instancia de SQLAlchemy
-dbSQL = SQLAlchemy()
+db = SQLAlchemy()
 
 
+userDataStore = SQLAlchemyUserDatastore(db, Usuario, Rol)
 
 
 def create_app():
@@ -23,11 +27,11 @@ def create_app():
     app.config['CORS_HEADERS'] = 'Content-Type'
 
 
-    dbSQL.init_app(app)
+    db.init_app(app)
 
     @app.before_first_request
     def create_all():
-        dbSQL.create_all()
+        db.create_all()
 
     from .Api.vehiculoApi import vehiculoApi as vehiculoApi
     app.register_blueprint(vehiculoApi)
