@@ -1,7 +1,7 @@
 import json
 from json import JSONEncoder
 from flask import Blueprint, jsonify, request
-from Controller.colonoController import *
+from ..Controller.colonoController import *
 
 colonoApi = Blueprint('colonoApi', __name__, url_prefix='/colono')
 

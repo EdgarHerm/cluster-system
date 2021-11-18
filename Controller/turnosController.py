@@ -1,5 +1,5 @@
-from models import Turno
-from __init__ import dbSQL
+from ..models import Turno
+from ..__init__ import dbSQL
 
 def consultarTurno():
     return dbSQL.session.query(Turno).filter(Turno.estatus==1)

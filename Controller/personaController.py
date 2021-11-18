@@ -1,5 +1,5 @@
-from models import Persona
-from __init__ import dbSQL
+from ..models import Persona
+from ..__init__ import dbSQL
 
 
 def consultarPersona(idPersona):

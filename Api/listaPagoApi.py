@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from Controller.listaPagoController import *
+from ..Controller.listaPagoController import *
 
 listaPagoApi = Blueprint('listaPagoApi', __name__,url_prefix='/listaPago')
 

@@ -1,5 +1,5 @@
-from models import Vehiculo
-from __init__ import dbSQL
+from ..models import Vehiculo
+from ..__init__ import dbSQL
 
 
 def consultarVehiculo(idColono):

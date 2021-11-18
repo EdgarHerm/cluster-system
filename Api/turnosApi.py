@@ -1,6 +1,6 @@
 import json 
 from flask import Blueprint, jsonify, request
-from Controller.turnosController import *
+from ..Controller.turnosController import *
 
 turnoApi = Blueprint('turnoApi', __name__, url_prefix='/turno')
 
