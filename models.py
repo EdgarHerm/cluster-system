@@ -1,4 +1,4 @@
-from . import dbSQL
+from __init__ import dbSQL
 from datetime import datetime
 
 hoy = datetime.now()
