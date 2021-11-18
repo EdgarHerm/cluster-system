@@ -54,8 +54,8 @@ def create_app():
     from .Api.loginApi import sesionApi as sesionApi  
     app.register_blueprint(sesionApi)
     
-    from .main import main as mains
-    app.register_blueprint(mains)
+    # from .main import main as mains
+    # app.register_blueprint(mains)
     
     
 
