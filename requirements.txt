@@ -6,4 +6,4 @@ flask_security
 flask_sqlalchemy
 flask_mongoengine
 mysqlclient
-gunicorn==19.9.0
+gunicorn
