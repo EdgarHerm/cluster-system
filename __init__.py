@@ -3,11 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore
 import os
 
-from .models import Usuario, Rol
 
 # Creamos una instancia de SQLAlchemy
 db = SQLAlchemy()
 
+from .models import Usuario, Rol
 
 userDataStore = SQLAlchemyUserDatastore(db, Usuario, Rol)
 
@@ -53,9 +53,6 @@ def create_app():
     
     from .Api.loginApi import sesionApi as sesionApi  
     app.register_blueprint(sesionApi)
-    
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
     
     
 
