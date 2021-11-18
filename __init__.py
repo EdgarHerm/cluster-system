@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore
 import os
 # Creamos una instancia de SQLAlchemy
-from .models import Usuario, Rol
+from models import Usuario, Rol
 dbSQL = SQLAlchemy()
 
 
