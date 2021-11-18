@@ -1,5 +1,5 @@
-from ..models import Domicilio
-from ..__init__ import dbSQL
+from models import Domicilio
+from __init__ import dbSQL
 
 def consultarDomicilio(idDomicilio):
     if idDomicilio == 0:

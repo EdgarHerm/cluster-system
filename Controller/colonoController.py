@@ -1,8 +1,8 @@
-from ..models import Colono, Persona, Usuario, Domicilio
-from .domicilioController import *
-from .personaController import *
-from .usuarioController import *
-from ..__init__ import dbSQL
+from models import Colono, Persona, Usuario, Domicilio
+from domicilioController import *
+from personaController import *
+from usuarioController import *
+from __init__ import dbSQL
 
 
 def consultarColono(idColono):

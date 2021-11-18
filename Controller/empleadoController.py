@@ -1,8 +1,8 @@
-from ..models import Persona, Usuario, Turno, Empleado
-from .turnosController import *
-from .personaController import *
-from .usuarioController import *
-from ..__init__ import dbSQL
+from models import Persona, Usuario, Turno, Empleado
+from turnosController import *
+from personaController import *
+from usuarioController import *
+from __init__ import dbSQL
 
 
 def consultarEmpleado(idEmpleado):

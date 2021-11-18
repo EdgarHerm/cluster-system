@@ -1,5 +1,5 @@
-from ..models import Usuario
-from ..__init__ import dbSQL
+from models import Usuario
+from __init__ import dbSQL
 import hashlib
 import random
 

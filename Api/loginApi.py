@@ -1,6 +1,6 @@
 import json
 from flask import Blueprint, jsonify, request
-from ..Controller.usuarioController import *
+from Controller.usuarioController import *
 
 sesionApi = Blueprint('sesionApi', __name__, url_prefix='/sesion')
 

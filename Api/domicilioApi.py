@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from ..Controller.domicilioController import *
+from Controller.domicilioController import *
 
 domicilioApi = Blueprint('domicilioApi', __name__,url_prefix='/domicilio')
 

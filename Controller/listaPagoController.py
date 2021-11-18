@@ -1,5 +1,5 @@
-from ..models import ListaPago
-from ..__init__ import dbSQL
+from models import ListaPago
+from __init__ import dbSQL
 
 def consultarListaPago(idListaPago):
     if idListaPago == 0:
