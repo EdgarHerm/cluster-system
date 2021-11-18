@@ -4,7 +4,7 @@ from flask_security import Security, SQLAlchemyUserDatastore
 import os
 # Creamos una instancia de SQLAlchemy
 dbSQL = SQLAlchemy()
-from .models import Usuario, Rol
+from models import Usuario, Rol
 
 userDataStore = SQLAlchemyUserDatastore(dbSQL, Usuario, Rol)
 
