@@ -1,4 +1,4 @@
-from .models import Rol, Usuario
+from models import Rol, Usuario
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore
