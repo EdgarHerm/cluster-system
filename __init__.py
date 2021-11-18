@@ -26,28 +26,28 @@ def create_app():
     def create_all():
         dbSQL.create_all()
 
-    from .Api.vehiculoApi import vehiculoApi as vehiculoApi
+    from Api.vehiculoApi import vehiculoApi as vehiculoApi
     app.register_blueprint(vehiculoApi)
 
-    from .Api.listaPagoApi import listaPagoApi as listaPagoApi
+    from Api.listaPagoApi import listaPagoApi as listaPagoApi
     app.register_blueprint(listaPagoApi)
 
-    from .Api.empleadoApi import empleadoApi as empleadoApi
+    from Api.empleadoApi import empleadoApi as empleadoApi
     app.register_blueprint(empleadoApi)
 
-    from .Api.colonoApi import colonoApi as colonoApi 
+    from Api.colonoApi import colonoApi as colonoApi 
     app.register_blueprint(colonoApi)
 
-    from .Api.turnosApi import turnoApi as turnosApi  
+    from Api.turnosApi import turnoApi as turnosApi  
     app.register_blueprint(turnosApi)
     
-    from .Api.domicilioApi import domicilioApi as domicilioApi  
+    from Api.domicilioApi import domicilioApi as domicilioApi  
     app.register_blueprint(domicilioApi)
     
-    from .Api.loginApi import sesionApi as sesionApi  
+    from Api.loginApi import sesionApi as sesionApi  
     app.register_blueprint(sesionApi)
     
-    from .main import main as main_blueprint
+    from main import main as main_blueprint
     app.register_blueprint(main_blueprint)
     
     
