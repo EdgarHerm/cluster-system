@@ -5,9 +5,7 @@ import os
 # Creamos una instancia de SQLAlchemy
 dbSQL = SQLAlchemy()
 
-from .models import Usuario, Rol
 
-userDataStore = SQLAlchemyUserDatastore(dbSQL, Usuario, Rol)
 
 
 def create_app():
