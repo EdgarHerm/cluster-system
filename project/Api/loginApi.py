@@ -17,9 +17,10 @@ def iniciarSesion():
             })
 
         if request.json["usuario"] and request.json["contrasenia"]:
+            
             sesion = login(request.json["usuario"],
                            request.json["contrasenia"])
-            return jsonify(sesion)
+            return jsonify({"result":sesion})
         else:
             estado = "ERROR"
             mensaje = "Ha ocurrido un error al iniciar sesion! Por favor verificalo con un administrador o revisa tu solicitud"
