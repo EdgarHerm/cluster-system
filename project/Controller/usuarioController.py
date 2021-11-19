@@ -12,10 +12,12 @@ def consultarUsuario(idUsuario):
     
     
 def insertarUsuario(correo, contraseña, idRol, estatus):
+    
+    contra =  hashlib.sha256(str(contraseña).encode('utf-8')).hexdigest()
     agregarUsuario = Usuario(
         correo=correo,
         estatus=estatus,
-        contraseña=contraseña, 
+        contraseña=contra, 
         token="", 
         idRol=idRol
     )
@@ -52,7 +54,9 @@ def validarToken(token):
         return False
     
 def login(usuario,contrasenia):
-    result = db.session.query(Usuario).filter(Usuario.correo == usuario and Usuario.contraseña == contrasenia).first()
+    
+    contra =  hashlib.sha256(str(contrasenia).encode('utf-8')).hexdigest()
+    result = db.session.query(Usuario).filter(Usuario.correo == usuario and Usuario.contraseña == contra).first()
     
     if result is not None:
         h = hashlib.sha256(str(usuario+""+contrasenia).encode('utf-8')).hexdigest()

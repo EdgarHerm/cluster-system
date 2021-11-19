@@ -14,6 +14,7 @@ def consultarEmpleado(idEmpleado):
 
 
 def agregarEmpleado(correo, contraseña, idRol, nombre, apellidos, telefono, estatus, empresa, zona, turno):
+    
     persona = insertarPersona(nombre, apellidos, telefono)
 
     usuario = insertarUsuario(correo, contraseña, idRol, estatus)
