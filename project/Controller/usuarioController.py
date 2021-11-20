@@ -59,7 +59,7 @@ def login(usuario,contrasenia):
     result = db.session.query(Usuario).filter(Usuario.correo == usuario and Usuario.contraseña == contra).first()
     
     if result:
-        h = hashlib.sha256(str(usuario+""+contrasenia).encode('utf-8')).hexdigest()
+        h = hashlib.sha256(str(result.correo+""+result.contraseña).encode('utf-8')).hexdigest()
         
         result.token = h
         db.session.add(result)

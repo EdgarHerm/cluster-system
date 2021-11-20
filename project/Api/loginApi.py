@@ -20,6 +20,11 @@ def iniciarSesion():
             
             sesion = login(request.json["usuario"],
                            request.json["contrasenia"])
+            if sesion is None:
+                return jsonify({
+                        "estado" : "ADVERTENCIA",
+                        "mensaje": "No se encontro una usuario o contraseña para ingresar"
+                    })
             return jsonify({"result":sesion})
         else:
             estado = "ERROR"
