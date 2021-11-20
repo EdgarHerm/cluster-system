@@ -25,7 +25,7 @@ def create_app():
     app.config['SECURITY_PASSWORD_SALT'] = 'thissecretsalt'
 
     app.config['CORS_HEADERS'] = 'Content-Type'
-
+ 
     db.init_app(app)
 
     @app.before_first_request
