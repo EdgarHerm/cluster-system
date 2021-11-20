@@ -56,8 +56,9 @@ def validarToken(token):
 def login(usuario,contrasenia):
     
     contra =  hashlib.sha256(str(contrasenia).encode('utf-8')).hexdigest()
-    result = db.session.query(Usuario).filter(Usuario.correo == usuario and Usuario.contraseña == contra).first()
-    
+    result = db.session.query(Usuario).filter(Usuario.correo == usuario).filter(Usuario.contraseña == contra).first()
+
+    print(result)
     if result:
         h = hashlib.sha256(str(result.correo+""+result.contraseña).encode('utf-8')).hexdigest()
         

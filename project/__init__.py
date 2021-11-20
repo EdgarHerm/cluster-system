@@ -1,3 +1,4 @@
+from .models import Usuario, Rol
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore
@@ -7,7 +8,6 @@ import os
 # Creamos una instancia de SQLAlchemy
 db = SQLAlchemy()
 
-from .models import Usuario, Rol
 
 userDataStore = SQLAlchemyUserDatastore(db, Usuario, Rol)
 
@@ -21,11 +21,15 @@ def create_app():
     app.config['SECRET_KEY'] = os.urandom(24)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://DeadCousing:admintaurus1@DeadCousing.mysql.pythonanywhere-services.com/DeadCousing$cluster'
-
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://taurus:T4urus2021_!@172.107.32.118:19966/cluster'
     app.config['SECURITY_PASSWORD_SALT'] = 'thissecretsalt'
+<<<<<<< HEAD
 
     app.config['CORS_HEADERS'] = 'Content-Type'
+=======
+>>>>>>> 30d57a87f6ea2548acaf382327b8cad9fd1e06fd
 
+    app.config['CORS_HEADERS'] = 'Content-Type'
 
     db.init_app(app)
 
@@ -56,7 +60,10 @@ def create_app():
 
     # from .main import main as mains
     # app.register_blueprint(mains)
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 30d57a87f6ea2548acaf382327b8cad9fd1e06fd
 
     return app
