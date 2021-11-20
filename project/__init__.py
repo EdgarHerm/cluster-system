@@ -1,4 +1,3 @@
-from .models import Usuario, Rol
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore
@@ -8,6 +7,7 @@ import os
 # Creamos una instancia de SQLAlchemy
 db = SQLAlchemy()
 
+from .models import Usuario, Rol
 
 userDataStore = SQLAlchemyUserDatastore(db, Usuario, Rol)
 
