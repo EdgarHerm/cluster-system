@@ -28,10 +28,10 @@ def insertarUsuario(correo, contraseña, idRol, estatus):
 
 
 def modificarUsuario(idUsuario, correo, contraseña, idRol , estatus):
-
+    contra =  hashlib.sha256(str(contraseña).encode('utf-8')).hexdigest()
     modificarUsuario = db.session.query(Usuario).filter(Usuario.idUsuario == idUsuario).first()
     modificarUsuario.correo = correo
-    modificarUsuario.contraseña = contraseña
+    modificarUsuario.contraseña = contra
     modificarUsuario.token = ""
     modificarUsuario.idRol = idRol
     modificarUsuario.estatus = estatus
