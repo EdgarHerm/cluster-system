@@ -30,7 +30,7 @@ def create_app():
 >>>>>>> 30d57a87f6ea2548acaf382327b8cad9fd1e06fd
 
     app.config['CORS_HEADERS'] = 'Content-Type'
-
+ 
     db.init_app(app)
 
     @app.before_first_request
