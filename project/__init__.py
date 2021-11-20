@@ -21,7 +21,7 @@ def create_app():
     app.config['SECRET_KEY'] = os.urandom(24)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://DeadCousing:admintaurus1@DeadCousing.mysql.pythonanywhere-services.com/DeadCousing$cluster'
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://taurus:T4urus2021_!@172.107.32.118:19966/cluster'
+    
     app.config['SECURITY_PASSWORD_SALT'] = 'thissecretsalt'
 <<<<<<< HEAD
 
