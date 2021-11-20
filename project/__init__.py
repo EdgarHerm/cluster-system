@@ -1,3 +1,4 @@
+from .models import Usuario, Rol
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore
@@ -7,7 +8,6 @@ import os
 # Creamos una instancia de SQLAlchemy
 db = SQLAlchemy()
 
-from .models import Usuario, Rol
 
 userDataStore = SQLAlchemyUserDatastore(db, Usuario, Rol)
 
@@ -21,11 +21,10 @@ def create_app():
     app.config['SECRET_KEY'] = os.urandom(24)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://DeadCousing:admintaurus1@DeadCousing.mysql.pythonanywhere-services.com/DeadCousing$cluster'
-
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://taurus:T4urus2021_!@172.107.32.118:19966/cluster'
     app.config['SECURITY_PASSWORD_SALT'] = 'thissecretsalt'
-    
-    app.config['CORS_HEADERS'] = 'Content-Type'
 
+    app.config['CORS_HEADERS'] = 'Content-Type'
 
     db.init_app(app)
 
@@ -42,21 +41,19 @@ def create_app():
     from .Api.empleadoApi import empleadoApi as empleadoApi
     app.register_blueprint(empleadoApi)
 
-    from .Api.colonoApi import colonoApi as colonoApi 
+    from .Api.colonoApi import colonoApi as colonoApi
     app.register_blueprint(colonoApi)
 
-    from .Api.turnosApi import turnoApi as turnosApi  
+    from .Api.turnosApi import turnoApi as turnosApi
     app.register_blueprint(turnosApi)
-    
-    from .Api.domicilioApi import domicilioApi as domicilioApi  
+
+    from .Api.domicilioApi import domicilioApi as domicilioApi
     app.register_blueprint(domicilioApi)
-    
-    from .Api.loginApi import sesionApi as sesionApi  
+
+    from .Api.loginApi import sesionApi as sesionApi
     app.register_blueprint(sesionApi)
-    
+
     # from .main import main as mains
     # app.register_blueprint(mains)
-    
-    
 
     return app
