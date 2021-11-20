@@ -58,7 +58,7 @@ def login(usuario,contrasenia):
     contra =  hashlib.sha256(str(contrasenia).encode('utf-8')).hexdigest()
     result = db.session.query(Usuario).filter(Usuario.correo == usuario and Usuario.contraseña == contra).first()
     
-    if result is not None:
+    if result:
         h = hashlib.sha256(str(usuario+""+contrasenia).encode('utf-8')).hexdigest()
         
         result.token = h
