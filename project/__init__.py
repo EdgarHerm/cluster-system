@@ -21,16 +21,11 @@ def create_app():
     app.config['SECRET_KEY'] = os.urandom(24)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://DeadCousing:admintaurus1@DeadCousing.mysql.pythonanywhere-services.com/DeadCousing$cluster'
-    
+
     app.config['SECURITY_PASSWORD_SALT'] = 'thissecretsalt'
-<<<<<<< HEAD
 
     app.config['CORS_HEADERS'] = 'Content-Type'
-=======
->>>>>>> 30d57a87f6ea2548acaf382327b8cad9fd1e06fd
 
-    app.config['CORS_HEADERS'] = 'Content-Type'
- 
     db.init_app(app)
 
     @app.before_first_request
@@ -60,10 +55,5 @@ def create_app():
 
     # from .main import main as mains
     # app.register_blueprint(mains)
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 30d57a87f6ea2548acaf382327b8cad9fd1e06fd
 
     return app
