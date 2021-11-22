@@ -29,7 +29,7 @@ def iniciarSesion():
                 for x in colono:
                     colonos_json.append({
                         "Colono": {
-                            "idColono": x.Colono.idColono,
+                            "token": x.Colono.token,
                             "idPersona": x.Colono.idPersona,
                             "idUsuario": x.Colono.idUsuario,
                             "idDomicilio": x.Colono.idDomicilio,
@@ -107,24 +107,23 @@ def salirSesion():
         })
 
 
-@sesionApi.route('/tokenUser', methods=['POST'])
-def tokenUser():
+@sesionApi.route("/mostrarToken", methods=['POST'])
+def buscarColonos():
+
+    estado = "OK"
+    mensaje = "Información consultada correctamente"
+
     try:
+        print(request.json)
+        print("token" not in request.json)
 
-        if "token" not in request.json:
-
-            return jsonify({
-                "estado": "ADVERTENCIA",
-                "mensaje": "Ha ocurrido un error, es necesario proporcionar un token"
-            })
-
-        if request.json["token"]:
-
-            colono = consultarColonoToken(request.json["token"])
-            if (colono):
+        if  request.json["token"]:
+            print("test")
+            colonos = consultarColonoToken(request.json["token"])
+            if (colonos):
 
                 colonos_json = []
-                for x in colono:
+                for x in colonos:
                     colonos_json.append({
                         "Colono": {
                             "idColono": x.Colono.idColono,
@@ -146,19 +145,17 @@ def tokenUser():
                             "descripcion": x.Domicilio.descripcion
                         }
                     })
-
-            return jsonify({"colono": colonos_json})
+                return jsonify(colonos_json)
         else:
             estado = "ERROR"
-            mensaje = "Ha ocurrido un error al encontrar usuario! Por favor verificalo con un administrador o revisa tu solicitud"
+            mensaje = "Ha ocurrido un error al buscar usuario por token! Por favor verificalo con un administrador o revisa tu solicitud"
             return jsonify({
                 "estado": estado,
                 "mensaje": mensaje
             })
     except Exception as e:
         estado = "ERROR"
-        mensaje = "Ha ocurrido un error al encontrar usuario! Por favor verificalo con un administrador o revisa tu solicitud"
-
+        mensaje = "Ha ocurrido un error! Por favor verificalo con un administrador"
         return jsonify({
             "estado": estado,
             "mensaje": mensaje,
