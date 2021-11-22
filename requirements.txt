@@ -7,3 +7,4 @@ flask_sqlalchemy
 flask_mongoengine
 mysqlclient
 gunicorn
+flask_cors
