@@ -107,8 +107,8 @@ def salirSesion():
         })
 
 
-@sesionApi.route('/login', methods=['POST'])
-def iniciarSesion():
+@sesionApi.route('/tokenUser', methods=['POST'])
+def tokenUser():
     try:
 
         if "token" not in request.json:
