@@ -12,6 +12,12 @@ def consultarColono(idColono):
     else:
         return db.session.query(Colono, Persona, Usuario, Domicilio).join(Persona, Persona.idPersona == Colono.idPersona).join(Usuario, Usuario.idUsuario == Colono.idUsuario).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).filter(Colono.idColono == idColono).filter(Colono.estatus==1)
 
+def consultarColonoToken(token):
+    if token:
+        return db.session.query(Colono, Persona, Usuario, Domicilio).join(Persona, Persona.idPersona == Colono.idPersona).join(Usuario, Usuario.idUsuario == Colono.idUsuario).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).filter(Colono.token == token).filter(Colono.estatus==1)
+
+    
+
 
 def agregarColono(foto,correo, contraseña, idRol, nombre, apellidos, telefono, idDomicilio) :
     estatus =1
