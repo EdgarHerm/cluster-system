@@ -2,8 +2,6 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore
 import os
-from flask_cors import CORS
-
 # Creamos una instancia de SQLAlchemy
 db = SQLAlchemy()
 
@@ -15,7 +13,6 @@ userDataStore = SQLAlchemyUserDatastore(db, Usuario, Rol)
 def create_app():
     # Creamos una instancia del flask
     app = Flask(__name__)
-    CORS(app)
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     # Generar la clave de sessión para crear una cookie con la inf. de la sessión
