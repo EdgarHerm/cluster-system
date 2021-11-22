@@ -14,7 +14,7 @@ def consultarColono(idColono):
 
 def consultarColonoToken(token):
     if token:
-        return db.session.query(Colono, Persona, Usuario, Domicilio).join(Persona, Persona.idPersona == Colono.idPersona).join(Usuario, Usuario.idUsuario == Colono.idUsuario).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).filter(Usuario.token == token).filter(Colono.estatus==1)
+        return db.session.query(Colono, Persona, Usuario, Domicilio).join(Persona, Persona.idPersona == Colono.idPersona).join(Usuario, Usuario.idUsuario == Colono.idUsuario).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).filter(Usuario.token == token)
 
     
 
