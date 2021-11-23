@@ -29,26 +29,22 @@ def buscarColonos():
                 colonos_json = []
                 for x in colonos:
                     colonos_json.append({
-                        "Colono": {
                             "idColono": x.Colono.idColono,
                             "idPersona": x.Colono.idPersona,
                             "idUsuario": x.Colono.idUsuario,
                             "idDomicilio": x.Colono.idDomicilio,
                             "foto": x.Colono.fotografia,
                             "estatus": x.Colono.estatus,
-                        }, "Persona": {
                             "nombre": x.Persona.nombre,
                             "apellidos": x.Persona.apellidos,
                             "telefono": x.Persona.telefono,
-                        }, "Usuario": {
                             "correo": x.Usuario.correo,
                             "constraseña": x.Usuario.contraseña,
-                        }, "Domicilio": {
                             "calle": x.Domicilio.calle,
                             "numero": x.Domicilio.numero,
                             "descripcion": x.Domicilio.descripcion
                         }
-                    })
+                    )
                 return jsonify(colonos_json)
         else:
             colono = consultarColono(request.json["idColono"])
@@ -60,25 +56,21 @@ def buscarColonos():
             colonos_json = []
             for x in colono:
                 colonos_json.append({
-                    "Colono": {
                         "idColono": x.Colono.idColono,
                         "idPersona": x.Colono.idPersona,
                         "idUsuario": x.Colono.idUsuario,
                         "idDomicilio": x.Colono.idDomicilio,
                         "foto": x.Colono.fotografia,
                         "estatus": x.Colono.estatus,
-                    }, "Persona": {
                         "nombre": x.Persona.nombre,
                         "apellidos": x.Persona.apellidos,
                         "telefono": x.Persona.telefono,
-                    }, "Usuario": {
                         "correo": x.Usuario.correo,
                         "constraseña": x.Usuario.contraseña,
-                    }, "Domicilio": {
                         "calle": x.Domicilio.calle,
                         "numero": x.Domicilio.numero,
                         "descripcion": x.Domicilio.descripcion
-                    }
+                    
                 })
             return jsonify(colonos_json)
 
