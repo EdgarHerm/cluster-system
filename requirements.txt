@@ -7,4 +7,4 @@ flask_sqlalchemy
 flask_mongoengine
 mysqlclient
 gunicorn
-flask_cors
+Flask-Cors==3.0.10

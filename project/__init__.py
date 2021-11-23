@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore
 import os
+import flask_cors
 # Creamos una instancia de SQLAlchemy
 db = SQLAlchemy()
 
@@ -21,7 +22,13 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://DeadCousing:admintaurus1@DeadCousing.mysql.pythonanywhere-services.com/DeadCousing$cluster'
 
     app.config['SECURITY_PASSWORD_SALT'] = 'thissecretsalt'
-
+    
+    flask_cors.CORS(app)
+    cors = flask_cors.CORS(app, resources={
+        r"/": {
+            "origins": ""
+        }
+    })
     app.config['CORS_HEADERS'] = 'Content-Type'
 
     db.init_app(app)
