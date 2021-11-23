@@ -28,25 +28,26 @@ def iniciarSesion():
                 colonos_json = []
                 for x in colono:
                     colonos_json.append({
-                        "Colono": {
-                            "token": x.Colono.token,
+                        
+                            "idColono": x.Colono.idColono,
                             "idPersona": x.Colono.idPersona,
                             "idUsuario": x.Colono.idUsuario,
                             "idDomicilio": x.Colono.idDomicilio,
                             "foto": x.Colono.fotografia,
                             "estatus": x.Colono.estatus,
-                        }, "Persona": {
+                     
                             "nombre": x.Persona.nombre,
                             "apellidos": x.Persona.apellidos,
                             "telefono": x.Persona.telefono,
-                        }, "Usuario": {
+                      
                             "correo": x.Usuario.correo,
                             "constraseña": x.Usuario.contraseña,
-                        }, "Domicilio": {
+                       
                             "calle": x.Domicilio.calle,
                             "numero": x.Domicilio.numero,
-                            "descripcion": x.Domicilio.descripcion
-                        }
+                            "descripcion": x.Domicilio.descripcion,
+                            "token": sesion
+                        
                     })
 
             if sesion is None:
@@ -54,7 +55,7 @@ def iniciarSesion():
                     "estado": "ADVERTENCIA",
                     "mensaje": "No se encontro una usuario o contraseña para ingresar"
                 })
-            return jsonify({"result": sesion,
+            return jsonify({
                             "colono": colonos_json})
         else:
             estado = "ERROR"
@@ -107,57 +108,4 @@ def salirSesion():
         })
 
 
-@sesionApi.route("/mostrarToken", methods=['POST'])
-def buscarColonos():
 
-    estado = "OK"
-    mensaje = "Información consultada correctamente"
-
-    try:
-        print(request.json)
-        print("token" not in request.json)
-
-        if  request.json["token"]:
-            print("test")
-            colonos = consultarColonoToken(request.json["token"])
-            if (colonos):
-
-                colonos_json = []
-                for x in colonos:
-                    colonos_json.append({
-                        "Colono": {
-                            "idColono": x.Colono.idColono,
-                            "idPersona": x.Colono.idPersona,
-                            "idUsuario": x.Colono.idUsuario,
-                            "idDomicilio": x.Colono.idDomicilio,
-                            "foto": x.Colono.fotografia,
-                            "estatus": x.Colono.estatus,
-                        }, "Persona": {
-                            "nombre": x.Persona.nombre,
-                            "apellidos": x.Persona.apellidos,
-                            "telefono": x.Persona.telefono,
-                        }, "Usuario": {
-                            "correo": x.Usuario.correo,
-                            "constraseña": x.Usuario.contraseña,
-                        }, "Domicilio": {
-                            "calle": x.Domicilio.calle,
-                            "numero": x.Domicilio.numero,
-                            "descripcion": x.Domicilio.descripcion
-                        }
-                    })
-                return jsonify(colonos_json)
-        else:
-            estado = "ERROR"
-            mensaje = "Ha ocurrido un error al buscar usuario por token! Por favor verificalo con un administrador o revisa tu solicitud"
-            return jsonify({
-                "estado": estado,
-                "mensaje": mensaje
-            })
-    except Exception as e:
-        estado = "ERROR"
-        mensaje = "Ha ocurrido un error! Por favor verificalo con un administrador"
-        return jsonify({
-            "estado": estado,
-            "mensaje": mensaje,
-            "excepcion": str(e)
-        })
