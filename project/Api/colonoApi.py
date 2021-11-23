@@ -45,7 +45,7 @@ def buscarColonos():
                             "descripcion": x.Domicilio.descripcion
                         }
                     )
-                return jsonify(colonos_json)
+                return jsonify({"colono":colonos_json})
         else:
             colono = consultarColono(request.json["idColono"])
             if colono is None:
@@ -72,7 +72,7 @@ def buscarColonos():
                         "descripcion": x.Domicilio.descripcion
                     
                 })
-            return jsonify(colonos_json)
+            return jsonify({"colono":colonos_json})
 
     except Exception as e:
         estado = "ERROR"
