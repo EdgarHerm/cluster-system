@@ -28,26 +28,29 @@ def iniciarSesion():
                 colonos_json = []
                 for x in colono:
                     colonos_json.append({
-                        
-                            "idColono": x.Colono.idColono,
-                            "idPersona": x.Colono.idPersona,
-                            "idUsuario": x.Colono.idUsuario,
-                            "idDomicilio": x.Colono.idDomicilio,
-                            "foto": x.Colono.fotografia,
-                            "estatus": x.Colono.estatus,
-                     
-                            "nombre": x.Persona.nombre,
-                            "apellidos": x.Persona.apellidos,
-                            "telefono": x.Persona.telefono,
-                      
-                            "correo": x.Usuario.correo,
-                            "constraseña": x.Usuario.contraseña,
-                       
-                            "calle": x.Domicilio.calle,
-                            "numero": x.Domicilio.numero,
-                            "descripcion": x.Domicilio.descripcion,
-                            "token": sesion
-                        
+
+                        "idColono": x.Colono.idColono,
+                        "idPersona": x.Colono.idPersona,
+                        "idUsuario": x.Colono.idUsuario,
+                        "idDomicilio": x.Colono.idDomicilio,
+                        "idRol": x.Usuario.idRol,
+                        "foto": x.Colono.fotografia,
+                        "estatus": x.Colono.estatus,
+
+                        "nombre": x.Persona.nombre,
+                        "apellidos": x.Persona.apellidos,
+                        "telefono": x.Persona.telefono,
+
+                        "correo": x.Usuario.correo,
+                        "constraseña": x.Usuario.contraseña,
+                        "rol": x.Rol.nombre,
+
+
+                        "calle": x.Domicilio.calle,
+                        "numero": x.Domicilio.numero,
+                        "descripcion": x.Domicilio.descripcion,
+                        "token": sesion
+
                     })
 
             if sesion is None:
@@ -56,7 +59,7 @@ def iniciarSesion():
                     "mensaje": "No se encontro una usuario o contraseña para ingresar"
                 })
             return jsonify({
-                            "colono": colonos_json})
+                "colono": colonos_json})
         else:
             estado = "ERROR"
             mensaje = "Ha ocurrido un error al iniciar sesion! Por favor verificalo con un administrador o revisa tu solicitud"
@@ -106,6 +109,3 @@ def salirSesion():
             "mensaje": mensaje,
             "excepcion": str(e)
         })
-
-
-

@@ -1,4 +1,4 @@
-from ..models import Persona, Usuario, Turno, Empleado
+from ..models import Persona, Usuario, Turno, Empleado, Rol
 from .turnosController import *
 from .personaController import *
 from .usuarioController import *
@@ -7,10 +7,10 @@ from ..__init__ import db
 
 def consultarEmpleado(idEmpleado):
     if idEmpleado == 0:
-        return db.session.query(Empleado, Persona, Usuario, Turno).join(Persona, Persona.idPersona == Empleado.idPersona).join(Usuario, Usuario.idUsuario == Empleado.idUsuario).join(Turno, Turno.idTurno == Empleado.idTurno).filter(Empleado.estatus == 1)
+        return db.session.query(Empleado, Persona, Usuario, Turno, Rol).join(Persona, Persona.idPersona == Empleado.idPersona).join(Usuario, Usuario.idUsuario == Empleado.idUsuario).join(Turno, Turno.idTurno == Empleado.idTurno).join(Rol,Rol.idRol == Usuario.idRol).filter(Empleado.estatus == 1)
 
     else:
-        return db.session.query(Empleado, Persona, Usuario, Turno).join(Persona, Persona.idPersona == Empleado.idPersona).join(Usuario, Usuario.idUsuario == Empleado.idUsuario).join(Turno, Turno.idTurno == Empleado.idTurno).filter(Empleado.idEmpleado == idEmpleado).filter(Empleado.estatus == 1)
+        return db.session.query(Empleado, Persona, Usuario, Turno, Rol).join(Persona, Persona.idPersona == Empleado.idPersona).join(Usuario, Usuario.idUsuario == Empleado.idUsuario).join(Turno, Turno.idTurno == Empleado.idTurno).join(Rol,Rol.idRol == Usuario.idRol).filter(Empleado.idEmpleado == idEmpleado).filter(Empleado.estatus == 1)
 
 
 def agregarEmpleado(correo, contraseña, idRol, nombre, apellidos, telefono, estatus, empresa, zona, turno):
