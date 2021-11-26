@@ -60,6 +60,9 @@ def create_app():
 
     from .Api.visitaApi import visitaApi as visitaApi
     app.register_blueprint(visitaApi)
+    
+    from .Api.recepcionPagoApi import recepcionApi as recepcionApi
+    app.register_blueprint(recepcionApi)
 
     # from .main import main as mains
     # app.register_blueprint(mains)
