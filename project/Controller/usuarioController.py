@@ -4,11 +4,8 @@ import hashlib
 import random
 
 
-def consultarUsuario(idUsuario):
-    if idUsuario == 0:
-        return Usuario.query.all()
-    else:
-        return db.session.query(Usuario).filter(Usuario.idUsuario == idUsuario).first()
+def consultarUsuario(token):
+        return db.session.query(Usuario).filter(Usuario.token == token).first()
     
     
 def insertarUsuario(correo, contraseña, idRol, estatus):

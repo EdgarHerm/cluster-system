@@ -13,6 +13,9 @@ def consultarEmpleado(idEmpleado):
         return db.session.query(Empleado, Persona, Usuario, Turno, Rol).join(Persona, Persona.idPersona == Empleado.idPersona).join(Usuario, Usuario.idUsuario == Empleado.idUsuario).join(Turno, Turno.idTurno == Empleado.idTurno).join(Rol,Rol.idRol == Usuario.idRol).filter(Empleado.idEmpleado == idEmpleado).filter(Empleado.estatus == 1)
 
 
+def consultarEmpleadoToken(token):
+        return db.session.query(Empleado, Persona, Usuario, Turno, Rol).join(Persona, Persona.idPersona == Empleado.idPersona).join(Usuario, Usuario.idUsuario == Empleado.idUsuario).join(Turno, Turno.idTurno == Empleado.idTurno).join(Rol,Rol.idRol == Usuario.idRol).filter(Usuario.token == token)
+
 def agregarEmpleado(correo, contraseña, idRol, nombre, apellidos, telefono, estatus, empresa, zona, turno):
     
     persona = insertarPersona(nombre, apellidos, telefono)
