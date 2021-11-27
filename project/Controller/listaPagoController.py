@@ -5,7 +5,7 @@ def consultarListaPago(idListaPago):
     if idListaPago == 0:
         return ListaPago.query.all()
     else:
-        return db.session.query(ListaPago).filter(ListaPago.idListaPago == idListaPago).filter(ListaPago.estatus==1)
+        return db.session.query(ListaPago).filter(ListaPago.idListaPago == idListaPago)
     
 def agregarListaPago(motivoPago,monto,descripcion,fechaFin):
 

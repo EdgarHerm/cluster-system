@@ -7,10 +7,10 @@ from ..__init__ import db
 
 def consultarColono(idColono):
     if idColono == 0:
-        return db.session.query(Colono, Persona, Usuario, Domicilio,Rol).join(Persona, Persona.idPersona == Colono.idPersona).join(Usuario, Usuario.idUsuario == Colono.idUsuario).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Rol,Rol.idRol == Usuario.idRol).filter(Colono.estatus==1)
+        return db.session.query(Colono, Persona, Usuario, Domicilio,Rol).join(Persona, Persona.idPersona == Colono.idPersona).join(Usuario, Usuario.idUsuario == Colono.idUsuario).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Rol,Rol.idRol == Usuario.idRol)
 
     else:
-        return db.session.query(Colono, Persona, Usuario, Domicilio,Rol).join(Persona, Persona.idPersona == Colono.idPersona).join(Usuario, Usuario.idUsuario == Colono.idUsuario).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Rol,Rol.idRol == Usuario.idRol).filter(Colono.idColono == idColono).filter(Colono.estatus==1)
+        return db.session.query(Colono, Persona, Usuario, Domicilio,Rol).join(Persona, Persona.idPersona == Colono.idPersona).join(Usuario, Usuario.idUsuario == Colono.idUsuario).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Rol,Rol.idRol == Usuario.idRol).filter(Colono.idColono == idColono)
 
 def consultarColonoToken(tokenColono):
     return db.session.query(Colono, Persona, Usuario, Domicilio,Rol).join(Persona, Persona.idPersona == Colono.idPersona).join(Usuario, Usuario.idUsuario == Colono.idUsuario).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Rol,Rol.idRol == Usuario.idRol).filter(Usuario.token == tokenColono)

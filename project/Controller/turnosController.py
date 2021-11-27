@@ -2,7 +2,7 @@ from ..models import Turno
 from ..__init__ import db
 
 def consultarTurno():
-    return db.session.query(Turno).filter(Turno.estatus==1)
+    return db.session.query(Turno)
 
 def agregarTurno(horaInicio,horaFin):
     turno = Turno(

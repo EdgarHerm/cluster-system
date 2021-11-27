@@ -3,9 +3,9 @@ from ..__init__ import db
 
 def consultarDomicilio(idDomicilio):
     if idDomicilio == 0:
-        return db.session.query(Domicilio).filter(Domicilio.estatus == 1).all()
+        return Domicilio.query.all()
     else:
-        return db.session.query(Domicilio).filter(Domicilio.idDomicilio == idDomicilio).filter(Domicilio.estatus == 1).first()
+        return db.session.query(Domicilio).filter(Domicilio.idDomicilio == idDomicilio).first()
 
 def agregarDomicilio(calle,numero,descripcion):
     agregarDomicilios = Domicilio(
