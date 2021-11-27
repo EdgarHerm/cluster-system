@@ -5,7 +5,7 @@ def consultarDomicilio(idDomicilio):
     if idDomicilio == 0:
         return Domicilio.query.all()
     else:
-        return db.session.query(Domicilio).filter(Domicilio.idDomicilio == idDomicilio).first()
+        return db.session.query(Domicilio).filter(Domicilio.idDomicilio == idDomicilio).filter(Domicilio.estatus == 1).first()
 
 def agregarDomicilio(calle,numero,descripcion):
     agregarDomicilios = Domicilio(
