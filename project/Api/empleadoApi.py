@@ -23,7 +23,6 @@ def mostrarEmpleado():
                 empleados_json = []
                 for x in empleados:
                     empleados_json.append({
-                        "Empleado": {
                             "idEmpleado": x.Empleado.idEmpleado,
                             "idPersona": x.Empleado.idPersona,
                             "idUsuario": x.Empleado.idUsuario,
@@ -31,17 +30,13 @@ def mostrarEmpleado():
                             "empresa": x.Empleado.empresador,
                             "zona": x.Empleado.zona,
                             "estatus": x.Empleado.estatus,
-                        }, "Persona": {
                             "nombre": x.Persona.nombre,
                             "apellidos": x.Persona.apellidos,
                             "telefono": x.Persona.telefono,
-                        }, "Usuario": {
                             "correo": x.Usuario.correo,
                             "constraseña": x.Usuario.contraseña,
-                        }, "Turno": {
                             "horaInicio": x.Turno.horaInicio,
-                            "horaFin": x.Turno.horaFin,
-                        }
+                            "horaFin": x.Turno.horaFin
                     })
                 return jsonify(empleados_json)
         else:
@@ -54,7 +49,6 @@ def mostrarEmpleado():
             empleados_json = []
             for x in empleado:
                 empleados_json.append({
-                    "Empleado": {
                         "idEmpleado": x.Empleado.idEmpleado,
                         "idPersona": x.Empleado.idPersona,
                         "idUsuario": x.Empleado.idUsuario,
@@ -62,17 +56,14 @@ def mostrarEmpleado():
                         "empresa": x.Empleado.empresador,
                         "zona": x.Empleado.zona,
                         "estatus": x.Empleado.estatus,
-                    }, "Persona": {
                         "nombre": x.Persona.nombre,
                         "apellidos": x.Persona.apellidos,
                         "telefono": x.Persona.telefono,
-                    }, "Usuario": {
                         "correo": x.Usuario.correo,
                         "constraseña": x.Usuario.contraseña,
-                    }, "Turno": {
                         "horaInicio": x.Turno.horaInicio,
                         "horaFin": x.Turno.horaFin,
-                    }
+                    
                 })
             return jsonify(empleados_json)
 
