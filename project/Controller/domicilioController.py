@@ -3,7 +3,7 @@ from ..__init__ import db
 
 def consultarDomicilio(idDomicilio):
     if idDomicilio == 0:
-        return Domicilio.query.all()
+        return db.session.query(Domicilio).filter(Domicilio.estatus == 1).all()
     else:
         return db.session.query(Domicilio).filter(Domicilio.idDomicilio == idDomicilio).filter(Domicilio.estatus == 1).first()
 
