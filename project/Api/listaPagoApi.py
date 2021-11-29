@@ -136,7 +136,7 @@ def desactivarPagos():
             "excepcion":str(e)
         })
         
-@listaPagoApi.route('/desactivar', methods=['POST'])
+@listaPagoApi.route('/activar', methods=['POST'])
 def activarPagos():  
     try: 
         if "idListaPago" not in request.json:

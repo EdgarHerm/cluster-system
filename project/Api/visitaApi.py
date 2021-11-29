@@ -75,7 +75,7 @@ def buscarVisita():
         })
 
 @visitaApi.route("/mostrarVisitaE", methods=['POST'])
-def buscarVisita():
+def buscarVisitaEmpleado():
     estado = "OK"
     mensaje = "Información consultada correctamente"
     
