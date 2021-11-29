@@ -7,7 +7,7 @@ def consultarVisitas(idVisita):
     if idVisita == 0:
         return db.session.query(Visita, Colono, Domicilio,Persona).join(Colono, Colono.idColono == Visita.idColono).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Persona, Persona.idPersona== Colono.idPersona).all()
     else:
-        return db.session.query(Visita, Colono, Domicilio,Persona).join(Colono, Colono.idColono == Visita.idColono).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Persona, Persona.idPersona== Colono.idPersona).filter(Visita.idVisita == idVisita).first()
+        return db.session.query(Visita, Colono, Domicilio,Persona).join(Colono, Colono.idColono == Visita.idColono).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Persona, Persona.idPersona== Colono.idPersona).filter(Visita.idVisita == idVisita)
 
 
 def consultarVisitasEmpleado(idColono):
