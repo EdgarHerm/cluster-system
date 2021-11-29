@@ -81,7 +81,7 @@ def agregarPagos():
     try:
         if agregarRecepcion(
             request.json["fechaPago"],
-            request.json["fotoEvidencia"],
+            request.json["fotEvidencia"],
             request.json["fechaRecepcion"],
             request.json["descripcion"],  
             request.json["idColono"],
@@ -117,7 +117,7 @@ def modifcarPagos():
         if modificarRecepcion(
             request.json["idRecepcionPago"],
             request.json["fechaPago"],
-            request.json["fotoEvidencia"],
+            request.json["fotEvidencia"],
             request.json["descripcion"]):
             return jsonify({
                 "estado" : "OK",
