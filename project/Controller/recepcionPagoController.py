@@ -3,9 +3,9 @@ from ..__init__ import db
 
 def consultarRecepcion(idRecepcionPago):
     if idRecepcionPago == 0:
-        return db.session.query(RecepcionPago,ListaPago,Colono,Persona).filter(Colono, Colono.idColono == RecepcionPago.idColono).filter(ListaPago, ListaPago.idListaPago == RecepcionPago.idListaPago).filter(Persona, Persona.idPersona == Colono.idPersona).all()
+        return db.session.query(RecepcionPago,ListaPago,Colono,Persona).join(Colono, Colono.idColono == RecepcionPago.idColono).join(ListaPago, ListaPago.idListaPago == RecepcionPago.idListaPago).join(Persona, Persona.idPersona == Colono.idPersona).all()
     else:
-        return db.session.query(RecepcionPago,ListaPago,Colono,Persona).filter(Colono, Colono.idColono == RecepcionPago.idColono).filter(ListaPago, ListaPago.idListaPago == RecepcionPago.idListaPago).filter(Persona, Persona.idPersona == Colono.idPersona).filter(RecepcionPago.idRecepcionPago == idRecepcionPago)
+        return db.session.query(RecepcionPago,ListaPago,Colono,Persona).join(Colono, Colono.idColono == RecepcionPago.idColono).join(ListaPago, ListaPago.idListaPago == RecepcionPago.idListaPago).join(Persona, Persona.idPersona == Colono.idPersona).filter(RecepcionPago.idRecepcionPago == idRecepcionPago).first()
     
 def agregarRecepcion(fechaPago,fotEvidencia,fechaRecepcion,descripcion,idColono,idListaPago):
     Recepcion = RecepcionPago(
