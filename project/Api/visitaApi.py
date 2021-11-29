@@ -36,7 +36,7 @@ def buscarVisita():
                         "numero": x.Domicilio.numero,
                         "descripcion":x.Domicilio.descripcion
                     })
-                return jsonify({"visitas":Visitas_json})
+                return jsonify({"visitas":Visitas_json})    
         else:
             visita = consultarVisitas(request.json["idVisita"])
             if visita is None:
