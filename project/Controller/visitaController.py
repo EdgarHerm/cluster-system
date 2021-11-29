@@ -14,7 +14,7 @@ def consultarVisitasEmpleado(idColono):
     if idColono == 0:
         return db.session.query(Visita, Colono, Domicilio,Persona).join(Colono, Colono.idColono == Visita.idColono).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Persona, Persona.idPersona== Colono.idPersona).all()
     else:
-        return db.session.query(Visita, Colono, Domicilio).join(Colono, Colono.idColono == Visita.idColono).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Persona, Persona.idPersona== Colono.idPersona).filter(Colono.idColono == idColono).firts()
+        return db.session.query(Visita, Colono, Domicilio).join(Colono, Colono.idColono == Visita.idColono).join(Domicilio, Domicilio.idDomicilio == Colono.idDomicilio).join(Persona, Persona.idPersona== Colono.idPersona).filter(Visita.idColono == idColono).all()
 
 def agregarVisitas(nombre, matricula, modelo, color, idColono):
 
