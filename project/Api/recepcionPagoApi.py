@@ -25,7 +25,7 @@ def buscarPagos():
                         "nombre": x.Persona.nombre,
                         "apellidos": x.Persona.apellidos,
                         "fechaPago" : x.RecepcionPago.fechaPago,
-                        "fotoEvidencia" : x.RecepcionPago.fotoEvidencia,
+                        "fotoEvidencia" : x.RecepcionPago.fotEvidencia,
                         "fechaRecepcion" : x.RecepcionPago.fechaRecepcion,
                         "descripcionRecepcion" : x.RecepcionPago.descripcion,
                         "estatus": x.RecepcionPago.estatus,
