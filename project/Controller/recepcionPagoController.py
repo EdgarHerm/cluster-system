@@ -1,11 +1,11 @@
-from ..models import RecepcionPago
+from ..models import RecepcionPago, Colono, ListaPago,Persona
 from ..__init__ import db
 
 def consultarRecepcion(idRecepcionPago):
     if idRecepcionPago == 0:
-        return db.session.query(RecepcionPago).all()
+        return db.session.query(RecepcionPago,ListaPago,Colono,Persona).filter(Colono, Colono.idColono == RecepcionPago.idColono).filter(ListaPago, ListaPago.idListaPago == RecepcionPago.idListaPago).filter(Persona, Persona.idPersona == Colono.idPersona).all()
     else:
-        return db.session.query(RecepcionPago).filter(RecepcionPago.idRecepcionPago == idRecepcionPago)
+        return db.session.query(RecepcionPago,ListaPago,Colono,Persona).filter(Colono, Colono.idColono == RecepcionPago.idColono).filter(ListaPago, ListaPago.idListaPago == RecepcionPago.idListaPago).filter(Persona, Persona.idPersona == Colono.idPersona).filter(RecepcionPago.idRecepcionPago == idRecepcionPago)
     
 def agregarRecepcion(fechaPago,fotEvidencia,fechaRecepcion,descripcion,idColono,idListaPago):
     Recepcion = RecepcionPago(

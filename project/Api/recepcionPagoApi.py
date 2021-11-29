@@ -10,28 +10,61 @@ def buscarPagos():
     
     try:
         print(request.json)
-        print("idColono" not in request.json)
+        print("idRecepcionPago" not in request.json)
         
-        if "idColono" not in request.json or request.json["idColono"] == 0:
+        if "idRecepcionPago" not in request.json or request.json["idRecepcionPago"] == 0:
             print("test")
             recepcions = consultarRecepcion(0)
             if len(recepcions)>0:
                 recepcions_json = []
-                for recepcion in recepcions:
-                    recepcion_dictionary = recepcion.__dict__
-                    del recepcion_dictionary['_sa_instance_state']
-                    recepcions_json.append(recepcion_dictionary)
-                return jsonify(recepcions_json)
+                for x in recepcions:
+                    recepcions_json.append({
+                        "idColono":x.Colono.idColono,
+                        "idRecepcionPago" :x.RecepcionPago.idRecepcionPago,
+                        "idListaPago" : x.ListaPago.idListaPago,
+                        "nombre": x.Persona.nombre,
+                        "apellidos": x.Persona.apellidos,
+                        "fechaPago" : x.RecepcionPago.fechaPago,
+                        "fotoEvidencia" : x.RecepcionPago.fotoEvidencia,
+                        "fechaRecepcion" : x.RecepcionPago.fechaRecepcion,
+                        "descripcionRecepcion" : x.RecepcionPago.descripcion,
+                        "estatus": x.RecepcionPago.estatus,
+                        "motivoPago":x.ListaPago.motivoPago,
+                        "monto" : x.ListaPago.monto,
+                        "descripcionLista": x.ListaPago.descripcion,
+                        "fechaInicio": x.ListaPago.fechaInicio,
+                        "fechaFin" : x.ListaPago.fechaFin,
+                        "estatusLista":x.ListaPago.estatus
+                    })
+                return jsonify({"Recepcion":recepcions_json})
         else:
-            recepcion = consultarRecepcion(request.json["idColono"])
+            recepcion = consultarRecepcion(request.json["idRecepcionPago"])
             if recepcion is None:
                     return jsonify({
                         "estado" : "ADVERTENCIA",
                         "mensaje": "No se encontro una recepcion de pago con el id especificado"
                     })
-            recepcion_dictionary = recepcion.__dict__
-            del recepcion_dictionary['_sa_instance_state']
-            return jsonify(recepcion_dictionary)
+            recepcions_json = []
+            for x in recepcion:
+                recepcions_json.append({
+                    "idColono":x.Colono.idColono,
+                    "idRecepcionPago" :x.RecepcionPago.idRecepcionPago,
+                    "idListaPago" : x.ListaPago.idListaPago,
+                    "nombre": x.Persona.nombre,
+                    "apellidos": x.Persona.apellidos,
+                    "fechaPago" : x.RecepcionPago.fechaPago,
+                    "fotoEvidencia" : x.RecepcionPago.fotoEvidencia,
+                    "fechaRecepcion" : x.RecepcionPago.fechaRecepcion,
+                    "descripcionRecepcion" : x.RecepcionPago.descripcion,
+                    "estatus": x.RecepcionPago.estatus,
+                    "motivoPago":x.ListaPago.motivoPago,
+                    "monto" : x.ListaPago.monto,
+                    "descripcionLista": x.ListaPago.descripcion,
+                    "fechaInicio": x.ListaPago.fechaInicio,
+                    "fechaFin" : x.ListaPago.fechaFin,
+                    "estatusLista":x.ListaPago.estatus
+                })
+            return jsonify({"Recepcion":recepcions_json})
         
     except Exception as e:
         estado = "ERROR"
